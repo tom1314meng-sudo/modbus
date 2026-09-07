@@ -91,5 +91,24 @@ namespace modbus
                    return Parity.None;
             }
         }
+
+        private void uiButton2_Click(object sender, EventArgs e)
+        {
+            ushort[] result;
+            try
+            {
+                uiListBox1.Items.Clear();
+                result =  modbusSerivalMaster.ReadHoldingRegisters(1, 0, 10);
+                for (int i = 0; i < result.Length; i++) { 
+                    uiListBox1.Items.Add(result[i]);
+                }
+                UIMessageTip.ShowOk("读取成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+
+            }
+        }
     }
 }

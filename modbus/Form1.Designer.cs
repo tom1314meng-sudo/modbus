@@ -30,7 +30,6 @@
         {
             this.uiTableLayoutPanel1 = new Sunny.UI.UITableLayoutPanel();
             this.uiGroupBox4 = new Sunny.UI.UIGroupBox();
-            this.uiTextBox9 = new Sunny.UI.UITextBox();
             this.uiTextBox8 = new Sunny.UI.UITextBox();
             this.uiGroupBox3 = new Sunny.UI.UIGroupBox();
             this.uiLedBulb5 = new Sunny.UI.UILedBulb();
@@ -75,6 +74,7 @@
             this.uiComboBox2 = new Sunny.UI.UIComboBox();
             this.uiLabel1 = new Sunny.UI.UILabel();
             this.uiComboBox1 = new Sunny.UI.UIComboBox();
+            this.uiListBox1 = new Sunny.UI.UIListBox();
             this.uiTableLayoutPanel1.SuspendLayout();
             this.uiGroupBox4.SuspendLayout();
             this.uiGroupBox3.SuspendLayout();
@@ -103,7 +103,7 @@
             // 
             // uiGroupBox4
             // 
-            this.uiGroupBox4.Controls.Add(this.uiTextBox9);
+            this.uiGroupBox4.Controls.Add(this.uiListBox1);
             this.uiGroupBox4.Controls.Add(this.uiTextBox8);
             this.uiGroupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiGroupBox4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -116,21 +116,6 @@
             this.uiGroupBox4.TabIndex = 3;
             this.uiGroupBox4.Text = "测试";
             this.uiGroupBox4.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiTextBox9
-            // 
-            this.uiTextBox9.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.uiTextBox9.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiTextBox9.Location = new System.Drawing.Point(38, 76);
-            this.uiTextBox9.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiTextBox9.MinimumSize = new System.Drawing.Size(1, 16);
-            this.uiTextBox9.Name = "uiTextBox9";
-            this.uiTextBox9.Padding = new System.Windows.Forms.Padding(5);
-            this.uiTextBox9.ShowText = false;
-            this.uiTextBox9.Size = new System.Drawing.Size(401, 243);
-            this.uiTextBox9.TabIndex = 14;
-            this.uiTextBox9.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiTextBox9.Watermark = "";
             // 
             // uiTextBox8
             // 
@@ -591,6 +576,7 @@
             this.uiButton2.TabIndex = 2;
             this.uiButton2.Text = "读";
             this.uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton2.Click += new System.EventHandler(this.uiButton2_Click);
             // 
             // uiButton1
             // 
@@ -760,6 +746,21 @@
             this.uiComboBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiComboBox1.Watermark = "";
             // 
+            // uiListBox1
+            // 
+            this.uiListBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiListBox1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
+            this.uiListBox1.ItemSelectForeColor = System.Drawing.Color.White;
+            this.uiListBox1.Location = new System.Drawing.Point(38, 75);
+            this.uiListBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiListBox1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiListBox1.Name = "uiListBox1";
+            this.uiListBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.uiListBox1.ShowText = false;
+            this.uiListBox1.Size = new System.Drawing.Size(401, 240);
+            this.uiListBox1.TabIndex = 15;
+            this.uiListBox1.Text = "uiListBox1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -826,7 +827,7 @@
         private Sunny.UI.UILedBulb uiLedBulb3;
         private Sunny.UI.UILedBulb uiLedBulb2;
         private Sunny.UI.UILedBulb uiLedBulb1;
-        private Sunny.UI.UITextBox uiTextBox9;
+        private Sunny.UI.UIListBox uiListBox1;
     }
 }
 
