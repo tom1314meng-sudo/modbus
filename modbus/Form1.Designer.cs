@@ -75,6 +75,7 @@
             this.uiLabel1 = new Sunny.UI.UILabel();
             this.uiComboBox1 = new Sunny.UI.UIComboBox();
             this.uiListBox1 = new Sunny.UI.UIListBox();
+            this.uiButton12 = new Sunny.UI.UIButton();
             this.uiTableLayoutPanel1.SuspendLayout();
             this.uiGroupBox4.SuspendLayout();
             this.uiGroupBox3.SuspendLayout();
@@ -529,6 +530,7 @@
             // uiGroupBox1
             // 
             this.uiGroupBox1.Controls.Add(this.uiButton3);
+            this.uiGroupBox1.Controls.Add(this.uiButton12);
             this.uiGroupBox1.Controls.Add(this.uiButton2);
             this.uiGroupBox1.Controls.Add(this.uiButton1);
             this.uiGroupBox1.Controls.Add(this.uiLabel5);
@@ -572,7 +574,7 @@
             this.uiButton2.Location = new System.Drawing.Point(114, 260);
             this.uiButton2.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton2.Name = "uiButton2";
-            this.uiButton2.Size = new System.Drawing.Size(254, 28);
+            this.uiButton2.Size = new System.Drawing.Size(120, 28);
             this.uiButton2.TabIndex = 2;
             this.uiButton2.Text = "读";
             this.uiButton2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -761,6 +763,19 @@
             this.uiListBox1.TabIndex = 15;
             this.uiListBox1.Text = "uiListBox1";
             // 
+            // uiButton12
+            // 
+            this.uiButton12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton12.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton12.Location = new System.Drawing.Point(248, 260);
+            this.uiButton12.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton12.Name = "uiButton12";
+            this.uiButton12.Size = new System.Drawing.Size(120, 28);
+            this.uiButton12.TabIndex = 2;
+            this.uiButton12.Text = "读线圈";
+            this.uiButton12.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton12.Click += new System.EventHandler(this.uiButton12_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -828,6 +843,7 @@
         private Sunny.UI.UILedBulb uiLedBulb2;
         private Sunny.UI.UILedBulb uiLedBulb1;
         private Sunny.UI.UIListBox uiListBox1;
+        private Sunny.UI.UIButton uiButton12;
     }
 }
 
