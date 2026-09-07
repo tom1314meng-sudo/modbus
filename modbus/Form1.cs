@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Sunny.UI;
+using System;
 using System.IO.Ports;
-using Sunny.UI;
-using Modbus.Device;
+using System.Windows.Forms;
 
 namespace modbus
 {
     public partial class Form1 : Form
     {
-        SerialPort serialPort = new SerialPort();
-        ModbusSerialMaster modbusSerivalMaster = null;  
+        private readonly RTUHelper _rtu = new RTUHelper();
+        private readonly TCPHelper _tcp = new TCPHelper();
+
         public string[] BaudRate_Array = new string[] { "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400", "56000" };
-        public string[] DataBits_Array = new string[] {  "7", "8" };
-        public string[] CheckBits_Array = new string[] { "None","Even","ODD" };
+        public string[] DataBits_Array = new string[] { "7", "8" };
+        public string[] CheckBits_Array = new string[] { "None", "Even", "ODD" };
         public string[] StopBits_Array = new string[] { "1", "2" };  //停止位
+
         public Form1()
         {
             InitializeComponent();
@@ -36,72 +30,42 @@ namespace modbus
             uiComboBox5.Items.AddRange(StopBits_Array);
         }
 
+        // ============ RTU 串口 ============
+
         private void uiButton1_Click(object sender, EventArgs e)
         {
             try
             {
-                if (serialPort.IsOpen)
+                if (_rtu.IsOpen)
                 {
-                    closeSerialPort();
+                    _rtu.Close();
+                    UIMessageTip.Show("串口已关闭");
                 }
                 else
                 {
-                    OpenSerialPort();
+                    _rtu.Open(
+                        uiComboBox1.SelectedItem.ToString(),
+                        int.Parse(uiComboBox2.SelectedItem.ToString()),
+                        int.Parse(uiComboBox3.SelectedItem.ToString()),
+                        RTUHelper.ParseParity(uiComboBox4.SelectedItem.ToString()),
+                        (StopBits)Enum.Parse(typeof(StopBits), uiComboBox5.SelectedItem.ToString()));
+                    UIMessageTip.ShowOk("串口已打开");
                 }
             }
             catch (Exception ex)
             {
-
-               UIMessageTip.ShowError(ex.Message, 3000);
-            }
-        }
-
-        private void OpenSerialPort()
-        {
-            serialPort.PortName = uiComboBox1.SelectedItem.ToString();
-            serialPort.BaudRate = int.Parse(uiComboBox2.SelectedItem.ToString());
-            serialPort.DataBits = int.Parse(uiComboBox3.SelectedItem.ToString());
-            serialPort.Parity = CheckBits(uiComboBox4.SelectedItem.ToString());
-            serialPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), uiComboBox5.SelectedItem.ToString());
-            serialPort.Open();
-            modbusSerivalMaster = ModbusSerialMaster.CreateRtu(serialPort);
-            UIMessageTip.ShowOk("串口已打开");
-        }
-
-        private void closeSerialPort()
-        {
-            //先释放modbus资源
-            modbusSerivalMaster?.Dispose();
-            modbusSerivalMaster = null;
-            serialPort.Close();
-            UIMessageTip.Show("串口已关闭");
-        }
-
-        private Parity CheckBits(string s)
-        {
-            switch (s)
-            {
-                case "None":
-                    return Parity.None;
-                case "Even":
-                    return Parity.Even;
-                case "ODD":
-                    return Parity.Odd;
-                default:
-                   return Parity.None;
+                UIMessageTip.ShowError(ex.Message, 3000);
             }
         }
 
         private void uiButton2_Click(object sender, EventArgs e)
         {
-            ushort[] result;
-           
             try
             {
                 uiListBox1.Items.Clear();
-                result =  modbusSerivalMaster.ReadHoldingRegisters(1, 0, 10);
-               
-                for (int i = 0; i < result.Length; i++) { 
+                ushort[] result = _rtu.ReadHoldingRegisters(1, 0, 10);
+                for (int i = 0; i < result.Length; i++)
+                {
                     uiListBox1.Items.Add(result[i]);
                 }
                 UIMessageTip.ShowOk("读取成功");
@@ -109,16 +73,14 @@ namespace modbus
             catch (Exception ex)
             {
                 UIMessageTip.ShowError(ex.Message, 3000);
-
             }
         }
 
         private void uiButton12_Click(object sender, EventArgs e)
         {
-            bool[] bools;
             try
             {
-                bools = modbusSerivalMaster.ReadCoils(1, 0, 10);
+                bool[] bools = _rtu.ReadCoils(1, 0, 10);
                 for (int i = 0; i < bools.Length; i++)
                 {
                     uiListBox1.Items.Add(bools[i]);
@@ -127,10 +89,200 @@ namespace modbus
             }
             catch (Exception ex)
             {
-
                 UIMessageTip.ShowError(ex.Message, 3000);
             }
+        }
 
+        private void uiButton3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ushort address = Convert.ToUInt16(uiTextBox1.Text);
+                ushort value = Convert.ToUInt16(uiTextBox2.Text);
+                _rtu.WriteSingleRegister(1, address, value);
+                UIMessageTip.ShowOk("写入成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+        }
+
+        // ============ TCP ============
+
+        private void uiButton6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _tcp.Connect(uiTextBox3.Text, Convert.ToInt32(uiTextBox4.Text));
+                UIMessageTip.ShowOk("TCP连接成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+        }
+
+        private void uiButton5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                uiListBox1.Items.Clear();
+                ushort[] result = _tcp.ReadHoldingRegisters(1, 0, 10);
+                for (int i = 0; i < result.Length; i++)
+                {
+                    uiListBox1.Items.Add(result[i]);
+                }
+                UIMessageTip.ShowOk("读取成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+        }
+
+        private void uiButton4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ushort address = Convert.ToUInt16(uiTextBox1.Text);
+                ushort value = Convert.ToUInt16(uiTextBox2.Text);
+                _tcp.WriteSingleRegister(1, address, value);
+                UIMessageTip.ShowOk("TCP写入成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+        }
+
+        private void uiButton13_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ushort startAddress = Convert.ToUInt16(uiTextBox1.Text);
+                ushort[] values = TCPHelper.ParseUShortArray(uiTextBox8.Text);
+                _tcp.WriteMultipleRegisters(1, startAddress, values);
+                UIMessageTip.ShowOk("TCP写入多个成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+        }
+
+        private void uiButton7_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ushort address = Convert.ToUInt16(uiTextBox1.Text);
+                bool value = TCPHelper.ParseBool(uiTextBox2.Text);
+
+                if (_rtu.IsOpen)
+                {
+                    _rtu.WriteSingleCoil(1, address, value);
+                }
+                else if (_tcp.IsConnected)
+                {
+                    _tcp.WriteSingleCoil(1, address, value);
+                }
+                else
+                {
+                    throw new Exception("请先打开串口或建立TCP连接");
+                }
+                UIMessageTip.ShowOk("写入单线圈成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+        }
+
+        private void uiButton8_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ushort startAddress = Convert.ToUInt16(uiTextBox1.Text);
+                bool[] values = TCPHelper.ParseBoolArray(uiTextBox8.Text);
+
+                if (_rtu.IsOpen)
+                {
+                    _rtu.WriteMultipleCoils(1, startAddress, values);
+                }
+                else if (_tcp.IsConnected)
+                {
+                    _tcp.WriteMultipleCoils(1, startAddress, values);
+                }
+                else
+                {
+                    throw new Exception("请先打开串口或建立TCP连接");
+                }
+                UIMessageTip.ShowOk("写入多线圈成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+        }
+
+        private void uiButton18_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ushort address = Convert.ToUInt16(uiTextBox1.Text);
+                ushort value = Convert.ToUInt16(uiTextBox2.Text);
+                _tcp.WriteSingleRegister(1, address, value);
+                UIMessageTip.ShowOk("TCP写入成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+        }
+
+        private void uiButton17_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ushort startAddress = Convert.ToUInt16(uiTextBox1.Text);
+                ushort[] values = TCPHelper.ParseUShortArray(uiTextBox8.Text);
+                _tcp.WriteMultipleRegisters(1, startAddress, values);
+                UIMessageTip.ShowOk("TCP写入多个成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+        }
+
+        private void uiButton16_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ushort address = Convert.ToUInt16(uiTextBox1.Text);
+                bool value = TCPHelper.ParseBool(uiTextBox2.Text);
+                _tcp.WriteSingleCoil(1, address, value);
+                UIMessageTip.ShowOk("TCP写入单线圈成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+        }
+
+        private void uiButton9_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ushort startAddress = Convert.ToUInt16(uiTextBox1.Text);
+                bool[] values = TCPHelper.ParseBoolArray(uiTextBox8.Text);
+                _tcp.WriteMultipleCoils(1, startAddress, values);
+                UIMessageTip.ShowOk("TCP写入多线圈成功");
+            }
+            catch (Exception ex)
+            {
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace modbus
+namespace modbus
 {
     partial class Form1
     {
@@ -30,6 +30,7 @@
         {
             this.uiTableLayoutPanel1 = new Sunny.UI.UITableLayoutPanel();
             this.uiGroupBox4 = new Sunny.UI.UIGroupBox();
+            this.uiListBox1 = new Sunny.UI.UIListBox();
             this.uiTextBox8 = new Sunny.UI.UITextBox();
             this.uiGroupBox3 = new Sunny.UI.UIGroupBox();
             this.uiLedBulb5 = new Sunny.UI.UILedBulb();
@@ -49,19 +50,26 @@
             this.uiLabel13 = new Sunny.UI.UILabel();
             this.uiLabel14 = new Sunny.UI.UILabel();
             this.uiGroupBox2 = new Sunny.UI.UIGroupBox();
+            this.uiButton4 = new Sunny.UI.UIButton();
+            this.uiButton16 = new Sunny.UI.UIButton();
+            this.uiButton17 = new Sunny.UI.UIButton();
+            this.uiButton18 = new Sunny.UI.UIButton();
             this.uiTextBox2 = new Sunny.UI.UITextBox();
             this.uiTextBox4 = new Sunny.UI.UITextBox();
             this.uiTextBox3 = new Sunny.UI.UITextBox();
             this.uiTextBox1 = new Sunny.UI.UITextBox();
             this.uiLabel8 = new Sunny.UI.UILabel();
             this.uiLabel9 = new Sunny.UI.UILabel();
-            this.uiButton4 = new Sunny.UI.UIButton();
             this.uiButton5 = new Sunny.UI.UIButton();
             this.uiButton6 = new Sunny.UI.UIButton();
             this.uiLabel6 = new Sunny.UI.UILabel();
             this.uiLabel7 = new Sunny.UI.UILabel();
             this.uiGroupBox1 = new Sunny.UI.UIGroupBox();
+            this.uiButton15 = new Sunny.UI.UIButton();
+            this.uiButton14 = new Sunny.UI.UIButton();
+            this.uiButton13 = new Sunny.UI.UIButton();
             this.uiButton3 = new Sunny.UI.UIButton();
+            this.uiButton12 = new Sunny.UI.UIButton();
             this.uiButton2 = new Sunny.UI.UIButton();
             this.uiButton1 = new Sunny.UI.UIButton();
             this.uiLabel5 = new Sunny.UI.UILabel();
@@ -74,8 +82,6 @@
             this.uiComboBox2 = new Sunny.UI.UIComboBox();
             this.uiLabel1 = new Sunny.UI.UILabel();
             this.uiComboBox1 = new Sunny.UI.UIComboBox();
-            this.uiListBox1 = new Sunny.UI.UIListBox();
-            this.uiButton12 = new Sunny.UI.UIButton();
             this.uiTableLayoutPanel1.SuspendLayout();
             this.uiGroupBox4.SuspendLayout();
             this.uiGroupBox3.SuspendLayout();
@@ -117,6 +123,21 @@
             this.uiGroupBox4.TabIndex = 3;
             this.uiGroupBox4.Text = "测试";
             this.uiGroupBox4.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // uiListBox1
+            // 
+            this.uiListBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiListBox1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
+            this.uiListBox1.ItemSelectForeColor = System.Drawing.Color.White;
+            this.uiListBox1.Location = new System.Drawing.Point(38, 75);
+            this.uiListBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiListBox1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiListBox1.Name = "uiListBox1";
+            this.uiListBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.uiListBox1.ShowText = false;
+            this.uiListBox1.Size = new System.Drawing.Size(401, 240);
+            this.uiListBox1.TabIndex = 15;
+            this.uiListBox1.Text = "uiListBox1";
             // 
             // uiTextBox8
             // 
@@ -352,13 +373,16 @@
             // 
             // uiGroupBox2
             // 
+            this.uiGroupBox2.Controls.Add(this.uiButton4);
+            this.uiGroupBox2.Controls.Add(this.uiButton16);
+            this.uiGroupBox2.Controls.Add(this.uiButton17);
+            this.uiGroupBox2.Controls.Add(this.uiButton18);
             this.uiGroupBox2.Controls.Add(this.uiTextBox2);
             this.uiGroupBox2.Controls.Add(this.uiTextBox4);
             this.uiGroupBox2.Controls.Add(this.uiTextBox3);
             this.uiGroupBox2.Controls.Add(this.uiTextBox1);
             this.uiGroupBox2.Controls.Add(this.uiLabel8);
             this.uiGroupBox2.Controls.Add(this.uiLabel9);
-            this.uiGroupBox2.Controls.Add(this.uiButton4);
             this.uiGroupBox2.Controls.Add(this.uiButton5);
             this.uiGroupBox2.Controls.Add(this.uiButton6);
             this.uiGroupBox2.Controls.Add(this.uiLabel6);
@@ -375,6 +399,58 @@
             this.uiGroupBox2.Text = "TCP配置";
             this.uiGroupBox2.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // uiButton4
+            // 
+            this.uiButton4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton4.Location = new System.Drawing.Point(368, 288);
+            this.uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton4.Name = "uiButton4";
+            this.uiButton4.Size = new System.Drawing.Size(102, 28);
+            this.uiButton4.TabIndex = 14;
+            this.uiButton4.Text = "写多个线圈";
+            this.uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton4.Click += new System.EventHandler(this.uiButton9_Click);
+            // 
+            // uiButton16
+            // 
+            this.uiButton16.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton16.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton16.Location = new System.Drawing.Point(260, 288);
+            this.uiButton16.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton16.Name = "uiButton16";
+            this.uiButton16.Size = new System.Drawing.Size(102, 28);
+            this.uiButton16.TabIndex = 15;
+            this.uiButton16.Text = "写单个线圈";
+            this.uiButton16.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton16.Click += new System.EventHandler(this.uiButton16_Click);
+            // 
+            // uiButton17
+            // 
+            this.uiButton17.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton17.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton17.Location = new System.Drawing.Point(152, 288);
+            this.uiButton17.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton17.Name = "uiButton17";
+            this.uiButton17.Size = new System.Drawing.Size(102, 28);
+            this.uiButton17.TabIndex = 16;
+            this.uiButton17.Text = "写多个";
+            this.uiButton17.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton17.Click += new System.EventHandler(this.uiButton17_Click);
+            // 
+            // uiButton18
+            // 
+            this.uiButton18.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton18.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton18.Location = new System.Drawing.Point(38, 288);
+            this.uiButton18.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton18.Name = "uiButton18";
+            this.uiButton18.Size = new System.Drawing.Size(108, 28);
+            this.uiButton18.TabIndex = 17;
+            this.uiButton18.Text = "写";
+            this.uiButton18.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton18.Click += new System.EventHandler(this.uiButton18_Click);
+            // 
             // uiTextBox2
             // 
             this.uiTextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -387,14 +463,15 @@
             this.uiTextBox2.ShowText = false;
             this.uiTextBox2.Size = new System.Drawing.Size(150, 29);
             this.uiTextBox2.TabIndex = 13;
-            this.uiTextBox2.Text = "uiTextBox1";
             this.uiTextBox2.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiTextBox2.Watermark = "";
             // 
             // uiTextBox4
             // 
             this.uiTextBox4.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.uiTextBox4.DoubleValue = 502D;
             this.uiTextBox4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiTextBox4.IntValue = 502;
             this.uiTextBox4.Location = new System.Drawing.Point(250, 76);
             this.uiTextBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiTextBox4.MinimumSize = new System.Drawing.Size(1, 16);
@@ -403,7 +480,7 @@
             this.uiTextBox4.ShowText = false;
             this.uiTextBox4.Size = new System.Drawing.Size(150, 29);
             this.uiTextBox4.TabIndex = 13;
-            this.uiTextBox4.Text = "uiTextBox1";
+            this.uiTextBox4.Text = "502";
             this.uiTextBox4.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiTextBox4.Watermark = "";
             // 
@@ -419,7 +496,7 @@
             this.uiTextBox3.ShowText = false;
             this.uiTextBox3.Size = new System.Drawing.Size(150, 29);
             this.uiTextBox3.TabIndex = 13;
-            this.uiTextBox3.Text = "uiTextBox1";
+            this.uiTextBox3.Text = "127.0.0.1";
             this.uiTextBox3.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiTextBox3.Watermark = "";
             // 
@@ -435,7 +512,6 @@
             this.uiTextBox1.ShowText = false;
             this.uiTextBox1.Size = new System.Drawing.Size(150, 29);
             this.uiTextBox1.TabIndex = 13;
-            this.uiTextBox1.Text = "uiTextBox1";
             this.uiTextBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiTextBox1.Watermark = "";
             // 
@@ -465,18 +541,6 @@
             this.uiLabel9.Text = "数据地址";
             this.uiLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // uiButton4
-            // 
-            this.uiButton4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiButton4.Location = new System.Drawing.Point(146, 174);
-            this.uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton4.Name = "uiButton4";
-            this.uiButton4.Size = new System.Drawing.Size(254, 28);
-            this.uiButton4.TabIndex = 6;
-            this.uiButton4.Text = "写";
-            this.uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            // 
             // uiButton5
             // 
             this.uiButton5.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -488,6 +552,7 @@
             this.uiButton5.TabIndex = 7;
             this.uiButton5.Text = "读";
             this.uiButton5.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton5.Click += new System.EventHandler(this.uiButton5_Click);
             // 
             // uiButton6
             // 
@@ -500,6 +565,7 @@
             this.uiButton6.TabIndex = 8;
             this.uiButton6.Text = "连接";
             this.uiButton6.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton6.Click += new System.EventHandler(this.uiButton6_Click);
             // 
             // uiLabel6
             // 
@@ -529,6 +595,9 @@
             // 
             // uiGroupBox1
             // 
+            this.uiGroupBox1.Controls.Add(this.uiButton15);
+            this.uiGroupBox1.Controls.Add(this.uiButton14);
+            this.uiGroupBox1.Controls.Add(this.uiButton13);
             this.uiGroupBox1.Controls.Add(this.uiButton3);
             this.uiGroupBox1.Controls.Add(this.uiButton12);
             this.uiGroupBox1.Controls.Add(this.uiButton2);
@@ -555,17 +624,70 @@
             this.uiGroupBox1.Text = "RTU配置";
             this.uiGroupBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // uiButton15
+            // 
+            this.uiButton15.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton15.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton15.Location = new System.Drawing.Point(352, 291);
+            this.uiButton15.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton15.Name = "uiButton15";
+            this.uiButton15.Size = new System.Drawing.Size(102, 28);
+            this.uiButton15.TabIndex = 2;
+            this.uiButton15.Text = "写多个线圈";
+            this.uiButton15.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton15.Click += new System.EventHandler(this.uiButton13_Click);
+            // 
+            // uiButton14
+            // 
+            this.uiButton14.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton14.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton14.Location = new System.Drawing.Point(244, 291);
+            this.uiButton14.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton14.Name = "uiButton14";
+            this.uiButton14.Size = new System.Drawing.Size(102, 28);
+            this.uiButton14.TabIndex = 2;
+            this.uiButton14.Text = "写单个线圈";
+            this.uiButton14.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton14.Click += new System.EventHandler(this.uiButton13_Click);
+            // 
+            // uiButton13
+            // 
+            this.uiButton13.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton13.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton13.Location = new System.Drawing.Point(136, 291);
+            this.uiButton13.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton13.Name = "uiButton13";
+            this.uiButton13.Size = new System.Drawing.Size(102, 28);
+            this.uiButton13.TabIndex = 2;
+            this.uiButton13.Text = "写多个";
+            this.uiButton13.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton13.Click += new System.EventHandler(this.uiButton13_Click);
+            // 
             // uiButton3
             // 
             this.uiButton3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiButton3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiButton3.Location = new System.Drawing.Point(114, 292);
+            this.uiButton3.Location = new System.Drawing.Point(22, 291);
             this.uiButton3.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton3.Name = "uiButton3";
-            this.uiButton3.Size = new System.Drawing.Size(254, 28);
+            this.uiButton3.Size = new System.Drawing.Size(108, 28);
             this.uiButton3.TabIndex = 2;
             this.uiButton3.Text = "写";
             this.uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton3.Click += new System.EventHandler(this.uiButton3_Click);
+            // 
+            // uiButton12
+            // 
+            this.uiButton12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton12.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton12.Location = new System.Drawing.Point(248, 260);
+            this.uiButton12.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton12.Name = "uiButton12";
+            this.uiButton12.Size = new System.Drawing.Size(120, 28);
+            this.uiButton12.TabIndex = 2;
+            this.uiButton12.Text = "读线圈";
+            this.uiButton12.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton12.Click += new System.EventHandler(this.uiButton12_Click);
             // 
             // uiButton2
             // 
@@ -748,34 +870,6 @@
             this.uiComboBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiComboBox1.Watermark = "";
             // 
-            // uiListBox1
-            // 
-            this.uiListBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiListBox1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
-            this.uiListBox1.ItemSelectForeColor = System.Drawing.Color.White;
-            this.uiListBox1.Location = new System.Drawing.Point(38, 75);
-            this.uiListBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiListBox1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiListBox1.Name = "uiListBox1";
-            this.uiListBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.uiListBox1.ShowText = false;
-            this.uiListBox1.Size = new System.Drawing.Size(401, 240);
-            this.uiListBox1.TabIndex = 15;
-            this.uiListBox1.Text = "uiListBox1";
-            // 
-            // uiButton12
-            // 
-            this.uiButton12.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton12.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiButton12.Location = new System.Drawing.Point(248, 260);
-            this.uiButton12.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton12.Name = "uiButton12";
-            this.uiButton12.Size = new System.Drawing.Size(120, 28);
-            this.uiButton12.TabIndex = 2;
-            this.uiButton12.Text = "读线圈";
-            this.uiButton12.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiButton12.Click += new System.EventHandler(this.uiButton12_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -827,7 +921,6 @@
         private Sunny.UI.UITextBox uiTextBox1;
         private Sunny.UI.UILabel uiLabel8;
         private Sunny.UI.UILabel uiLabel9;
-        private Sunny.UI.UIButton uiButton4;
         private Sunny.UI.UIButton uiButton5;
         private Sunny.UI.UIButton uiButton6;
         private Sunny.UI.UITextBox uiTextBox7;
@@ -844,6 +937,13 @@
         private Sunny.UI.UILedBulb uiLedBulb1;
         private Sunny.UI.UIListBox uiListBox1;
         private Sunny.UI.UIButton uiButton12;
+        private Sunny.UI.UIButton uiButton13;
+        private Sunny.UI.UIButton uiButton15;
+        private Sunny.UI.UIButton uiButton14;
+        private Sunny.UI.UIButton uiButton4;
+        private Sunny.UI.UIButton uiButton16;
+        private Sunny.UI.UIButton uiButton17;
+        private Sunny.UI.UIButton uiButton18;
     }
 }
 
