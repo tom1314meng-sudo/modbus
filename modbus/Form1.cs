@@ -1,9 +1,12 @@
 ﻿using Sunny.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace modbus
@@ -20,7 +23,8 @@ namespace modbus
         // TCP 通讯封装
         private readonly TCPHelper _tcp = new TCPHelper();
 
-        IniFile ini = new IniFile(Directory.GetCurrentDirectory() + "Setup.ini");
+        // INI 读写封装
+        private readonly iniHelper _iniHelper = new iniHelper();
 
         // 串口参数下拉框数据源
         public string[] BaudRate_Array = new string[] { "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400", "56000" };
@@ -153,6 +157,8 @@ namespace modbus
         {
             try
             {
+                //关闭旧连接，先释放资源
+                 _tcp.Disconnect();
                 _tcp.Connect(uiTextBox3.Text, Convert.ToInt32(uiTextBox4.Text));
                 UIMessageTip.ShowOk("TCP连接成功");
             }
@@ -370,7 +376,7 @@ namespace modbus
                 list.Add(uiTextBox7.Text);
                 List<ushort> ushortlist = list.Select(ushort.Parse).ToList();//转换ushort类型
                 _tcp.WriteMultipleRegisters(1, 0, ushortlist.ToArray());
-                Writelocal();
+                _iniHelper.WriteLocal(uiTextBox6, uiTextBox5, uiTextBox7);
                 UIMessageTip.ShowOk("写入成功");
             }
             catch (Exception ex)
@@ -381,12 +387,99 @@ namespace modbus
 
         }
 
-        private void Writelocal()
+        
+        // plc读取
+        private void uiButton11_Click(object sender, EventArgs e)
         {
-            ini.Write("setup", "X", uiTextBox6.Text);
-            ini.Write("setup", "Y", uiTextBox5.Text);
-            ini.Write("setup", "U", uiTextBox7.Text);
-            ini.UpdateFile();
+            try
+            {
+                uiListBox1.Items.Clear();
+                ushort[] ushorts = new ushort[10];
+               ushorts = _tcp.ReadHoldingRegisters(1, 0, 10);
+                for (int i = 0; i < ushorts.Length; i++)
+                {
+                    uiListBox1.Items.Add(ushorts[i]);
+                }
+                UIMessageTip.ShowOk("读取成功");
+            }
+            catch (Exception ex)
+            {
+
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+        }
+        // 读取本地配置
+        private void uiButton9_Click_1(object sender, EventArgs e)
+        {
+            _iniHelper.LoadLocal(uiTextBox6, uiTextBox5, uiTextBox7);
+            UIMessageTip.ShowOk("读取成功");
+        }
+
+        bool ismonitoring = false;  
+
+        private void uiButton8_Click_1(object sender, EventArgs e)
+        {
+            if (!ismonitoring)
+            {
+                UIMessageTip.ShowWarning("未监控");
+                ismonitoring = true;
+                Task.Run(() => monitorloop());
+            }
+            else
+            {
+                UIMessageTip.ShowWarning("正在监控中");
+                
+            }
+        }
+        private void monitorloop()
+        {
+            UILedBulb[] uILedBulbs = new UILedBulb[] { uiLedBulb1, uiLedBulb2, uiLedBulb3, uiLedBulb4, uiLedBulb5, uiLedBulb6, uiLedBulb7, uiLedBulb8 };
+            while (ismonitoring)
+            {
+                try
+                {
+                    ushort[] ushorts = _tcp.ReadHoldingRegisters(1, 0, 8);
+                    Invoke(new Action(() =>
+                    {
+                        if (ushorts != null)
+                        {
+                            for (int i = 0; i < ushorts.Length; i++)
+                            {
+                                if (ushorts[i] > 10) { 
+                                    uILedBulbs[i].Color = Color.Red;
+
+                                }
+                                else
+                                {
+                                    uILedBulbs[i].Color = Color.Green;
+                                }
+
+                            }
+                        }
+                    }));
+                }
+                catch (Exception ex)
+                {
+                    UIMessageTip.ShowError(ex.Message, 3000);
+                    ismonitoring = false;
+                }
+
+            }
+        }
+
+        private void uiButton7_Click_1(object sender, EventArgs e) 
+        {
+            ismonitoring = false;
+            
+            UIMessageTip.ShowOk("监控已停止");
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ismonitoring = false;
+            _rtu.Close();
+            _tcp.Disconnect();
+
         }
     }
 }

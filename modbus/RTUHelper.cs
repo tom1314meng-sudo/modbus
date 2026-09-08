@@ -97,6 +97,7 @@ namespace modbus
             _master = null;
             if (_serialPort.IsOpen)
             {
+                _serialPort.Dispose();
                 _serialPort.Close();
             }
         }

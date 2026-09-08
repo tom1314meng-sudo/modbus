@@ -82,6 +82,9 @@ namespace modbus
             this.uiComboBox2 = new Sunny.UI.UIComboBox();
             this.uiLabel1 = new Sunny.UI.UILabel();
             this.uiComboBox1 = new Sunny.UI.UIComboBox();
+            this.uiLedBulb6 = new Sunny.UI.UILedBulb();
+            this.uiLedBulb7 = new Sunny.UI.UILedBulb();
+            this.uiLedBulb8 = new Sunny.UI.UILedBulb();
             this.uiTableLayoutPanel1.SuspendLayout();
             this.uiGroupBox4.SuspendLayout();
             this.uiGroupBox3.SuspendLayout();
@@ -160,6 +163,9 @@ namespace modbus
             this.uiGroupBox3.Controls.Add(this.uiLedBulb4);
             this.uiGroupBox3.Controls.Add(this.uiLedBulb3);
             this.uiGroupBox3.Controls.Add(this.uiLedBulb2);
+            this.uiGroupBox3.Controls.Add(this.uiLedBulb8);
+            this.uiGroupBox3.Controls.Add(this.uiLedBulb7);
+            this.uiGroupBox3.Controls.Add(this.uiLedBulb6);
             this.uiGroupBox3.Controls.Add(this.uiLedBulb1);
             this.uiGroupBox3.Controls.Add(this.uiTextBox7);
             this.uiGroupBox3.Controls.Add(this.uiTextBox5);
@@ -296,6 +302,7 @@ namespace modbus
             this.uiButton7.TabIndex = 2;
             this.uiButton7.Text = "停止监控";
             this.uiButton7.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton7.Click += new System.EventHandler(this.uiButton7_Click_1);
             // 
             // uiButton11
             // 
@@ -308,6 +315,7 @@ namespace modbus
             this.uiButton11.TabIndex = 2;
             this.uiButton11.Text = "PLC读取";
             this.uiButton11.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton11.Click += new System.EventHandler(this.uiButton11_Click);
             // 
             // uiButton8
             // 
@@ -320,6 +328,7 @@ namespace modbus
             this.uiButton8.TabIndex = 2;
             this.uiButton8.Text = "开启监控";
             this.uiButton8.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton8.Click += new System.EventHandler(this.uiButton8_Click_1);
             // 
             // uiButton9
             // 
@@ -332,6 +341,7 @@ namespace modbus
             this.uiButton9.TabIndex = 2;
             this.uiButton9.Text = "本地读取";
             this.uiButton9.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton9.Click += new System.EventHandler(this.uiButton9_Click_1);
             // 
             // uiLabel12
             // 
@@ -871,6 +881,30 @@ namespace modbus
             this.uiComboBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiComboBox1.Watermark = "";
             // 
+            // uiLedBulb6
+            // 
+            this.uiLedBulb6.Location = new System.Drawing.Point(375, 38);
+            this.uiLedBulb6.Name = "uiLedBulb6";
+            this.uiLedBulb6.Size = new System.Drawing.Size(26, 28);
+            this.uiLedBulb6.TabIndex = 16;
+            this.uiLedBulb6.Text = "uiLedBulb1";
+            // 
+            // uiLedBulb7
+            // 
+            this.uiLedBulb7.Location = new System.Drawing.Point(374, 75);
+            this.uiLedBulb7.Name = "uiLedBulb7";
+            this.uiLedBulb7.Size = new System.Drawing.Size(26, 28);
+            this.uiLedBulb7.TabIndex = 16;
+            this.uiLedBulb7.Text = "uiLedBulb1";
+            // 
+            // uiLedBulb8
+            // 
+            this.uiLedBulb8.Location = new System.Drawing.Point(375, 114);
+            this.uiLedBulb8.Name = "uiLedBulb8";
+            this.uiLedBulb8.Size = new System.Drawing.Size(26, 28);
+            this.uiLedBulb8.TabIndex = 16;
+            this.uiLedBulb8.Text = "uiLedBulb1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -879,6 +913,7 @@ namespace modbus
             this.Controls.Add(this.uiTableLayoutPanel1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.uiTableLayoutPanel1.ResumeLayout(false);
             this.uiGroupBox4.ResumeLayout(false);
@@ -945,6 +980,9 @@ namespace modbus
         private Sunny.UI.UIButton uiButton16;
         private Sunny.UI.UIButton uiButton17;
         private Sunny.UI.UIButton uiButton18;
+        private Sunny.UI.UILedBulb uiLedBulb8;
+        private Sunny.UI.UILedBulb uiLedBulb7;
+        private Sunny.UI.UILedBulb uiLedBulb6;
     }
 }
 
