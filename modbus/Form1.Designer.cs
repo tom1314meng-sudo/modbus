@@ -283,6 +283,7 @@ namespace modbus
             this.uiButton10.TabIndex = 2;
             this.uiButton10.Text = "写入";
             this.uiButton10.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton10.Click += new System.EventHandler(this.uiButton10_Click);
             // 
             // uiButton7
             // 
@@ -557,7 +558,7 @@ namespace modbus
             // uiButton6
             // 
             this.uiButton6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton6.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton6.Font = new System.Drawing.Font("苹方-简", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiButton6.Location = new System.Drawing.Point(146, 110);
             this.uiButton6.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton6.Name = "uiButton6";

@@ -1,15 +1,28 @@
 ﻿using Sunny.UI;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.IO.Ports;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace modbus
 {
+    /// <summary>
+    /// 主窗体。所有 Modbus 通讯逻辑均委托给 <see cref="RTUHelper"/> 与 <see cref="TCPHelper"/>，
+    /// 本类只负责：装载界面元素、读取界面输入、调用 helper、显示提示。
+    /// </summary>
     public partial class Form1 : Form
     {
+        // 串口（RTU）通讯封装
         private readonly RTUHelper _rtu = new RTUHelper();
+
+        // TCP 通讯封装
         private readonly TCPHelper _tcp = new TCPHelper();
 
+        IniFile ini = new IniFile(Directory.GetCurrentDirectory() + "Setup.ini");
+
+        // 串口参数下拉框数据源
         public string[] BaudRate_Array = new string[] { "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400", "56000" };
         public string[] DataBits_Array = new string[] { "7", "8" };
         public string[] CheckBits_Array = new string[] { "None", "Even", "ODD" };
@@ -20,8 +33,12 @@ namespace modbus
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 窗体加载：填充串口列表与各参数下拉框。
+        /// </summary>
         private void Form1_Load(object sender, EventArgs e)
         {
+            // 自动枚举系统串口，写入下拉框
             string[] portNames = SerialPort.GetPortNames();
             uiComboBox1.Items.AddRange(portNames);
             uiComboBox2.Items.AddRange(BaudRate_Array);
@@ -30,19 +47,26 @@ namespace modbus
             uiComboBox5.Items.AddRange(StopBits_Array);
         }
 
-        // ============ RTU 串口 ============
+        // ============================================================
+        // RTU 区（uiGroupBox1）
+        // ============================================================
 
+        /// <summary>
+        /// 串口连接/断开 切换按钮（uiButton1）。
+        /// </summary>
         private void uiButton1_Click(object sender, EventArgs e)
         {
             try
             {
                 if (_rtu.IsOpen)
                 {
+                    // 当前已打开，执行关闭
                     _rtu.Close();
                     UIMessageTip.Show("串口已关闭");
                 }
                 else
                 {
+                    // 从界面读取串口参数并打开（超时 1000ms、重试 3 次，使用默认值）
                     _rtu.Open(
                         uiComboBox1.SelectedItem.ToString(),
                         int.Parse(uiComboBox2.SelectedItem.ToString()),
@@ -58,6 +82,9 @@ namespace modbus
             }
         }
 
+        /// <summary>
+        /// RTU 读保持寄存器（uiButton2），从站号 1，起始 0，长度 10。
+        /// </summary>
         private void uiButton2_Click(object sender, EventArgs e)
         {
             try
@@ -76,6 +103,9 @@ namespace modbus
             }
         }
 
+        /// <summary>
+        /// RTU 读线圈（uiButton12），从站号 1，起始 0，长度 10。
+        /// </summary>
         private void uiButton12_Click(object sender, EventArgs e)
         {
             try
@@ -93,6 +123,10 @@ namespace modbus
             }
         }
 
+        /// <summary>
+        /// RTU 写单寄存器（uiButton3）：
+        /// 地址取自 uiTextBox1，值取自 uiTextBox2，从站号固定 1。
+        /// </summary>
         private void uiButton3_Click(object sender, EventArgs e)
         {
             try
@@ -108,8 +142,13 @@ namespace modbus
             }
         }
 
-        // ============ TCP ============
+        // ============================================================
+        // TCP 区（uiGroupBox2）
+        // ============================================================
 
+        /// <summary>
+        /// TCP 连接按钮（uiButton6）：IP 取自 uiTextBox3，端口取自 uiTextBox4。
+        /// </summary>
         private void uiButton6_Click(object sender, EventArgs e)
         {
             try
@@ -123,6 +162,9 @@ namespace modbus
             }
         }
 
+        /// <summary>
+        /// TCP 读保持寄存器（uiButton5）。
+        /// </summary>
         private void uiButton5_Click(object sender, EventArgs e)
         {
             try
@@ -141,6 +183,9 @@ namespace modbus
             }
         }
 
+        /// <summary>
+        /// TCP 写单寄存器（uiButton4）。
+        /// </summary>
         private void uiButton4_Click(object sender, EventArgs e)
         {
             try
@@ -156,6 +201,10 @@ namespace modbus
             }
         }
 
+        /// <summary>
+        /// TCP 写多寄存器（uiButton13）：
+        /// 起始地址取 uiTextBox1，多个值取自 uiTextBox8（英文逗号分隔）。
+        /// </summary>
         private void uiButton13_Click(object sender, EventArgs e)
         {
             try
@@ -171,6 +220,13 @@ namespace modbus
             }
         }
 
+        // ============================================================
+        // 共用：写线圈（自动选择 RTU 或 TCP 通道）
+        // ============================================================
+
+        /// <summary>
+        /// 写单线圈（uiButton7）：优先使用已打开的串口，否则回退到 TCP。
+        /// </summary>
         private void uiButton7_Click(object sender, EventArgs e)
         {
             try
@@ -198,6 +254,9 @@ namespace modbus
             }
         }
 
+        /// <summary>
+        /// 写多线圈（uiButton8）：优先使用已打开的串口，否则回退到 TCP。
+        /// </summary>
         private void uiButton8_Click(object sender, EventArgs e)
         {
             try
@@ -225,6 +284,13 @@ namespace modbus
             }
         }
 
+        // ============================================================
+        // TCP 额外按钮（与 uiButton4/13/16/9 重复的 TCP 写）
+        // ============================================================
+
+        /// <summary>
+        /// TCP 写单寄存器（uiButton18），与 uiButton4 行为一致。
+        /// </summary>
         private void uiButton18_Click(object sender, EventArgs e)
         {
             try
@@ -240,6 +306,9 @@ namespace modbus
             }
         }
 
+        /// <summary>
+        /// TCP 写多寄存器（uiButton17），与 uiButton13 行为一致。
+        /// </summary>
         private void uiButton17_Click(object sender, EventArgs e)
         {
             try
@@ -255,6 +324,9 @@ namespace modbus
             }
         }
 
+        /// <summary>
+        /// TCP 写单线圈（uiButton16）。
+        /// </summary>
         private void uiButton16_Click(object sender, EventArgs e)
         {
             try
@@ -270,6 +342,9 @@ namespace modbus
             }
         }
 
+        /// <summary>
+        /// TCP 写多线圈（uiButton9）。
+        /// </summary>
         private void uiButton9_Click(object sender, EventArgs e)
         {
             try
@@ -283,6 +358,35 @@ namespace modbus
             {
                 UIMessageTip.ShowError(ex.Message, 3000);
             }
+        }
+
+        private void uiButton10_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<string> list = new List<string>();
+                list.Add(uiTextBox6.Text);
+                list.Add(uiTextBox5.Text);
+                list.Add(uiTextBox7.Text);
+                List<ushort> ushortlist = list.Select(ushort.Parse).ToList();//转换ushort类型
+                _tcp.WriteMultipleRegisters(1, 0, ushortlist.ToArray());
+                Writelocal();
+                UIMessageTip.ShowOk("写入成功");
+            }
+            catch (Exception ex)
+            {
+
+                UIMessageTip.ShowError(ex.Message, 3000);
+            }
+
+        }
+
+        private void Writelocal()
+        {
+            ini.Write("setup", "X", uiTextBox6.Text);
+            ini.Write("setup", "Y", uiTextBox5.Text);
+            ini.Write("setup", "U", uiTextBox7.Text);
+            ini.UpdateFile();
         }
     }
 }
